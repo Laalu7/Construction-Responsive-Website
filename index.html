@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX | Premium Construction & Architecture</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            goldLight: '#E5C079',
+                            dark: '#0a0a0a',
+                            charcoal: '#151515',
+                            gray: '#252525'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/modern-residential-tower.jpg')",
+                        'blueprint': "linear-gradient(rgba(10,10,10,0.92), rgba(10,10,10,0.96)), url('https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/architectural-studio.jpg')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-black">
+
+    <!-- Sticky Call Widget -->
+    <div class="fixed right-0 top-1/2 z-40 transform -translate-y-1/2 flex items-center group">
+        <div class="bg-brand-gold text-black py-6 px-3 cursor-pointer hover:pl-5 transition-all duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)] relative overflow-hidden rounded-l-lg" onclick="window.location.href='tel:+1234567890'">
+            <div class="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+            <div class="flex flex-col items-center gap-4">
+                <i class="ph-fill ph-phone-call text-xl"></i>
+                <span class="vertical-text font-display font-bold tracking-widest text-xs whitespace-nowrap">CONTACT US</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookies Popup -->
+    <div id="cookie-popup" class="fixed bottom-6 left-6 z-50 bg-brand-charcoal/90 backdrop-blur-md border-l-4 border-brand-gold p-6 max-w-sm shadow-2xl transform translate-y-[150%] transition-transform duration-500 hidden rounded-r-lg">
+        <button onclick="closeCookies()" class="absolute top-2 right-2 text-gray-500 hover:text-white transition-colors">
+            <i class="ph ph-x text-lg"></i>
+        </button>
+        <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+                <i class="ph-fill ph-cookie text-3xl text-brand-gold"></i>
+                <h4 class="font-display text-lg font-bold">Privacy First</h4>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed">We use cookies to enhance your architectural journey on our site.</p>
+            <div class="flex gap-4 mt-2">
+                <button onclick="acceptCookies()" class="text-brand-gold text-sm font-bold tracking-widest hover:text-white transition-colors uppercase border-b border-brand-gold pb-1">Accept All</button>
+                <button onclick="closeCookies()" class="text-xs text-gray-500 hover:text-white transition-colors">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll To Top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 z-50 w-16 h-16 flex items-center justify-center opacity-0 translate-y-10 transition-all duration-700 pointer-events-none group">
+        <!-- Text Tooltip -->
+        <span class="absolute right-full mr-4 text-[10px] font-bold tracking-[0.2em] text-brand-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none uppercase">Elevate</span>
+        
+        <!-- Rotating Outer Ring -->
+        <div class="absolute inset-0 rounded-full border border-white/5 animate-[spin_10s_linear_infinite] group-hover:border-brand-gold/30 transition-colors"></div>
+        
+        <!-- SVG Progress Ring -->
+        <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="28" fill="rgba(20,20,20,0.8)" stroke="rgba(255,255,255,0.05)" stroke-width="1" class="backdrop-blur-sm" />
+            <circle id="scroll-progress-circle" cx="30" cy="30" r="28" fill="none" stroke="#C5A059" stroke-width="2" stroke-dasharray="175.9" stroke-dashoffset="175.9" stroke-linecap="round" class="transition-all duration-75" />
+        </svg>
+        
+        <!-- Inner Core -->
+        <div class="relative w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+            <!-- Normal Arrow -->
+            <i class="ph-bold ph-arrow-up text-white text-lg group-hover:-translate-y-10 transition-transform duration-500 absolute"></i>
+            <!-- Hover Arrow -->
+            <i class="ph-bold ph-caret-double-up text-brand-gold text-lg translate-y-10 group-hover:translate-y-0 transition-transform duration-500 absolute"></i>
+        </div>
+    </button>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6 border-b border-transparent bg-gradient-to-b from-black/80 to-transparent">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 group relative z-50">
+                <div class="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:border-brand-gold transition-colors duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-brand-gold transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-bottom"></div>
+                    <span class="font-display font-bold text-xl relative z-10 group-hover:text-black transition-colors">A</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display text-xl font-bold tracking-[0.2em] text-white leading-none">APEX</span>
+                    <span class="text-[0.6rem] text-brand-gold tracking-widest uppercase">Construct</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-10">
+                <a href="about.html" class="font-display text-sm tracking-widest hover:text-brand-gold transition-colors relative group">
+                    ABOUT US
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+                <!-- Dropdown -->
+                <div class="relative group">
+                    <button class="font-display text-sm tracking-widest hover:text-brand-gold transition-colors flex items-center gap-1 py-4">
+                        PROJECTS <i class="ph ph-caret-down"></i>
+                    </button>
+                    <div class="dropdown-menu absolute top-full left-0 w-56 bg-brand-charcoal border border-white/10 p-2 shadow-2xl backdrop-blur-xl">
+                        <a href="projects.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors font-display tracking-wide">All Projects</a>
+                        <a href="project-detail.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors font-display tracking-wide">Commercial</a>
+                        <a href="project-detail.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors font-display tracking-wide">Residential</a>
+                        <a href="project-detail.html" class="block px-4 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors font-display tracking-wide">Industrial</a>
+                    </div>
+                </div>
+
+                <a href="services.html" class="font-display text-sm tracking-widest hover:text-brand-gold transition-colors relative group">
+                    SERVICES
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                
+                <a href="blog.html" class="font-display text-sm tracking-widest hover:text-brand-gold transition-colors relative group">
+                    JOURNAL
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                
+                <a href="contact.html" class="btn-magnetic px-8 py-3 border border-white/20 font-display text-sm tracking-widest font-bold">
+                    CONTACT
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="hamburger-btn" class="lg:hidden hamburger focus:outline-none z-50 relative">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 text-center backdrop-blur-xl">
+            <a href="about.html" class="text-4xl font-display font-bold hover:text-brand-gold mobile-link text-stroke hover:text-stroke-0 transition-all">ABOUT US</a>
+            <a href="projects.html" class="text-4xl font-display font-bold hover:text-brand-gold mobile-link text-stroke hover:text-stroke-0 transition-all">PROJECTS</a>
+            <a href="services.html" class="text-4xl font-display font-bold hover:text-brand-gold mobile-link text-stroke hover:text-stroke-0 transition-all">SERVICES</a>
+            <a href="blog.html" class="text-4xl font-display font-bold hover:text-brand-gold mobile-link text-stroke hover:text-stroke-0 transition-all">JOURNAL</a>
+            <a href="contact.html" class="text-4xl font-display font-bold hover:text-brand-gold mobile-link text-stroke hover:text-stroke-0 transition-all">CONTACT</a>
+            <div class="mobile-link mt-8">
+                 <div class="w-12 h-[1px] bg-brand-gold/30 mx-auto mb-4"></div>
+                 <a href="tel:+1234567890" class="text-lg text-brand-gold font-display tracking-widest">+1 (555) 000-0000</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
+        <!-- Background with Parallax & Spotlight -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-60" data-speed="0.5"></div>
+        
+        <!-- Gradient Mesh Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(197,160,89,0.15),transparent_50%)]"></div>
+
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-8 text-left">
+                <div class="inline-flex items-center gap-4 mb-6" data-aos="fade-right">
+                    <div class="w-12 h-[1px] bg-brand-gold"></div>
+                    <p class="text-brand-gold font-display tracking-[0.4em] text-sm font-bold uppercase">Building The Future</p>
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[0.9]">
+                    <span class="block text-white" data-aos="slide-up" data-aos-duration="1000">CONCRETE</span>
+                    <span class="block text-stroke relative" data-aos="slide-up" data-aos-duration="1000" data-aos-delay="200">
+                        VISIONS
+                        <span class="absolute top-0 left-0 text-brand-gold/10 opacity-50 blur-[2px] select-none">VISIONS</span>
+                    </span>
+                </h1>
+                
+                <p class="text-gray-400 max-w-xl text-lg font-light leading-relaxed mb-10 border-l-2 border-white/10 pl-6" data-aos="fade-up" data-aos-delay="400">
+                    We sculpt skylines with a fusion of brutalist strength and modern elegance. Your vision, engineered to perfection.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#projects" class="btn-magnetic bg-white text-black px-8 py-3 font-display font-bold tracking-widest text-center hover:bg-brand-gold border border-white hover:border-brand-gold text-sm">
+                        OUR PORTFOLIO
+                    </a>
+                    <button id="play-reel" class="group flex items-center gap-4 px-6 transition-colors text-gray-300 hover:text-white">
+                        <div class="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:border-brand-gold group-hover:scale-110 transition-all">
+                            <i class="ph-fill ph-play text-xl group-hover:text-brand-gold"></i>
+                        </div>
+                        <span class="font-display font-bold tracking-widest text-sm border-b border-transparent group-hover:border-brand-gold transition-all">WATCH FILM</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero Statistic/Visual -->
+            <div class="hidden lg:block lg:col-span-4" data-aos="fade-left" data-aos-delay="800">
+                <div class="relative bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-lg max-w-sm ml-auto">
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-brand-gold rounded-full blur-[40px] opacity-20"></div>
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Current Status</p>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                <span class="font-display font-bold">OPERATIONAL</span>
+                            </div>
+                        </div>
+                        <i class="ph ph-trend-up text-3xl text-brand-gold"></i>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-4xl font-display font-bold text-white">45<span class="text-brand-gold">+</span></h3>
+                            <p class="text-sm text-gray-500">Active Sites</p>
+                        </div>
+                        <div class="h-[1px] bg-white/10"></div>
+                        <div>
+                            <h3 class="text-4xl font-display font-bold text-white">98<span class="text-brand-gold">%</span></h3>
+                            <p class="text-sm text-gray-500">Client Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 right-10 flex flex-col items-center gap-2" data-aos="fade-in" data-aos-delay="1000">
+            <span class="writing-vertical text-xs tracking-[0.3em] text-gray-500 uppercase rotate-180" style="writing-mode: vertical-rl;">Scroll Down</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-brand-gold to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="bg-brand-gold border-y border-black relative z-20 py-5 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-multiply"></div>
+        <div class="flex whitespace-nowrap animate-[scroll_20s_linear_infinite]">
+            <span class="text-black font-display text-5xl font-bold mx-8 italic">INNOVATION •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic stroke-text text-transparent" style="-webkit-text-stroke: 1px black;">PRECISION •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic">EXCELLENCE •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic stroke-text text-transparent" style="-webkit-text-stroke: 1px black;">SUSTAINABILITY •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic">INNOVATION •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic stroke-text text-transparent" style="-webkit-text-stroke: 1px black;">PRECISION •</span>
+            <span class="text-black font-display text-5xl font-bold mx-8 italic">EXCELLENCE •</span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-brand-charcoal relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-brand-dark/50 skew-x-12 transform translate-x-20 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div data-aos="fade-right">
+                    <span class="text-brand-gold tracking-[0.3em] text-xs font-bold uppercase mb-4 block">About Us</span>
+                    <h2 class="font-display text-5xl md:text-6xl font-bold mb-8 leading-tight">
+                        ENGINEERING <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-white">TOMORROW</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        At Apex, we believe that architecture is frozen music. Our team of elite engineers and visionary architects work in unison to deliver projects that stand the test of time. We combine traditional craftsmanship with cutting-edge technology.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <i class="ph-fill ph-check-circle text-brand-gold text-xl"></i>
+                            <span>LEED Certified Construction</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <i class="ph-fill ph-check-circle text-brand-gold text-xl"></i>
+                            <span>BIM Integrated Workflows</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-300">
+                            <i class="ph-fill ph-check-circle text-brand-gold text-xl"></i>
+                            <span>24/7 Project Monitoring</span>
+                        </li>
+                    </ul>
+
+                    <a href="about.html" class="inline-block border-b border-brand-gold pb-1 text-brand-gold font-display tracking-widest hover:text-white hover:border-white transition-colors">
+                        READ MORE ABOUT US
+                    </a>
+                </div>
+                
+                <div class="relative" data-aos="fade-left">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4 mt-12">
+                            <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/black-tower.jpg" class="w-full h-64 object-cover rounded-lg shadow-2xl transition-all duration-700 hover:scale-[1.02]" alt="Site">
+                            <div class="bg-brand-gray p-6 rounded-lg border border-white/5">
+                                <h3 class="font-display text-3xl font-bold text-brand-gold mb-1 counter" data-target="24">0</h3>
+                                <p class="text-xs uppercase tracking-widest text-gray-500">Awards Won</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-brand-gray p-6 rounded-lg border border-white/5 text-right">
+                                <h3 class="font-display text-3xl font-bold text-brand-gold mb-1 counter" data-target="150">0</h3>
+                                <p class="text-xs uppercase tracking-widest text-gray-500">Global Projects</p>
+                            </div>
+                            <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/commercial-construction-site.jpg" class="w-full h-80 object-cover rounded-lg shadow-2xl transition-all duration-700 hover:scale-[1.02]" alt="Architect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 bg-brand-dark overflow-hidden">
+        <div class="container mx-auto px-6 mb-16 text-center" data-aos="fade-up">
+            <span class="text-brand-gold tracking-[0.3em] text-sm font-bold">WHAT WE DO</span>
+            <h2 class="font-display text-4xl md:text-5xl font-bold mt-4">EXPERTISE IN ACTION</h2>
+        </div>
+
+        <!-- Swiper Container -->
+        <div class="swiper serviceSwiper swiper-container-padding w-full max-w-7xl mx-auto px-4">
+            <div class="swiper-wrapper">
+                <!-- Service 1 -->
+                <div class="swiper-slide !w-[300px] md:!w-[400px]">
+                    <div class="group relative h-[500px] rounded-xl overflow-hidden cursor-pointer shadow-2xl border border-white/10">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/commercial-interior.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Commercial">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                        
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <i class="ph ph-buildings text-5xl text-brand-gold mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
+                            <h3 class="font-display text-3xl font-bold mb-2">Commercial</h3>
+                            <p class="text-gray-400 text-sm transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                High-rise offices, retail spaces, and corporate HQs built for the future with sustainability in mind.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="swiper-slide !w-[300px] md:!w-[400px]">
+                    <div class="group relative h-[500px] rounded-xl overflow-hidden cursor-pointer shadow-2xl border border-white/10">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/modern-residential-tower.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Residential">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                        
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <i class="ph ph-house-line text-5xl text-brand-gold mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
+                            <h3 class="font-display text-3xl font-bold mb-2">Residential</h3>
+                            <p class="text-gray-400 text-sm transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                Luxury villas and bespoke homes designed with elegance, comfort, and functionality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Service 3 -->
+                 <div class="swiper-slide !w-[300px] md:!w-[400px]">
+                    <div class="group relative h-[500px] rounded-xl overflow-hidden cursor-pointer shadow-2xl border border-white/10">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/industrial-construction-site.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Renovation">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                        
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <i class="ph ph-ruler text-5xl text-brand-gold mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
+                            <h3 class="font-display text-3xl font-bold mb-2">Industrial</h3>
+                            <p class="text-gray-400 text-sm transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                Heavy duty industrial complexes, warehouses, and factories engineered for efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="swiper-slide !w-[300px] md:!w-[400px]">
+                    <div class="group relative h-[500px] rounded-xl overflow-hidden cursor-pointer shadow-2xl border border-white/10">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/artistic-architectural-design.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Management">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90"></div>
+                        
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                            <i class="ph ph-compass-tool text-5xl text-brand-gold mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></i>
+                            <h3 class="font-display text-3xl font-bold mb-2">Architecture</h3>
+                            <p class="text-gray-400 text-sm transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                Conceptual design and blueprinting services that turn abstract ideas into concrete reality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination mt-12"></div>
+        </div>
+    </section>
+
+    <!-- Projects Portfolio -->
+    <section id="projects" class="py-32 bg-brand-charcoal">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between lg:items-end mb-16 gap-6" data-aos="fade-up">
+                <div>
+                    <span class="text-brand-gold tracking-[0.3em] text-sm font-bold">LATEST WORK</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-3">SELECTED PROJECTS</h2>
+                </div>
+                <div class="flex gap-4">
+                    <button class="px-6 py-2 border border-brand-gold text-brand-gold font-bold tracking-widest text-xs hover:bg-brand-gold hover:text-black transition-colors">ALL</button>
+                    <button class="px-6 py-2 border border-white/20 text-gray-400 font-bold tracking-widest text-xs hover:border-white hover:text-white transition-colors">COMMERCIAL</button>
+                    <button class="px-6 py-2 border border-white/20 text-gray-400 font-bold tracking-widest text-xs hover:border-white hover:text-white transition-colors">RESIDENTIAL</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <a href="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/modern-residential-tower.jpg" data-fancybox="gallery" data-caption="The Obsidian Tower - New York" class="group relative h-96 overflow-hidden md:col-span-2 block rounded-sm" data-aos="zoom-in">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/modern-residential-tower.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Building">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <span class="text-brand-gold text-xs tracking-widest font-bold uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Commercial</span>
+                        <h3 class="text-white font-display text-3xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">THE OBSIDIAN TOWER</h3>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a href="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/luxury-villa.jpg" data-fancybox="gallery" data-caption="Villa Azure - Miami" class="group relative h-96 overflow-hidden block rounded-sm" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/luxury-villa.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Villa">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <span class="text-brand-gold text-xs tracking-widest font-bold uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Residential</span>
+                        <h3 class="text-white font-display text-3xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">VILLA AZURE</h3>
+                    </div>
+                </a>
+
+                <!-- Project 3 -->
+                <a href="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/luxurious-tower-lounge-area.jpg" data-fancybox="gallery" data-caption="Apex HQ - London" class="group relative h-96 overflow-hidden block rounded-sm" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/luxurious-tower-lounge-area.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Office">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <span class="text-brand-gold text-xs tracking-widest font-bold uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Interior</span>
+                        <h3 class="text-white font-display text-3xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">APEX HQ</h3>
+                    </div>
+                </a>
+                
+                <!-- Project 4 -->
+                <a href="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/skylin-view.jpg" data-fancybox="gallery" data-caption="Skyline Bridge - Chicago" class="group relative h-96 overflow-hidden md:col-span-2 block rounded-sm" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/skylin-view.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Bridge">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <span class="text-brand-gold text-xs tracking-widest font-bold uppercase translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Infrastructure</span>
+                        <h3 class="text-white font-display text-3xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">SKYLINE BRIDGE</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-32 bg-blueprint bg-fixed bg-cover relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center border border-white/10 bg-black/40 backdrop-blur-sm p-12 rounded-2xl">
+                <i class="ph-fill ph-quotes text-6xl text-brand-gold mb-8 inline-block opacity-80"></i>
+                
+                <div class="swiper testimonialSwiper pb-12">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <p class="font-display text-2xl md:text-3xl leading-relaxed font-light italic mb-8 text-white">
+                                "Apex Construct didn't just meet our expectations; they redefined what was possible for our headquarters. A masterclass in precision."
+                            </p>
+                            <h4 class="font-bold text-brand-gold text-lg tracking-widest uppercase">Jonathan Sterling</h4>
+                            <p class="text-sm text-gray-400">CEO, Sterling Corp</p>
+                        </div>
+                        <div class="swiper-slide">
+                            <p class="font-display text-2xl md:text-3xl leading-relaxed font-light italic mb-8 text-white">
+                                "Professionalism, punctuality, and pure aesthetic brilliance. Working with the Apex team was seamless from blueprint to ribbon cutting."
+                            </p>
+                            <h4 class="font-bold text-brand-gold text-lg tracking-widest uppercase">Elena Vance</h4>
+                            <p class="text-sm text-gray-400">Principal Architect, Vance Design</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination testimonial-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-32 bg-brand-charcoal">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between lg:items-end mb-16 gap-6" data-aos="fade-up">
+                <div>
+                    <span class="text-brand-gold tracking-[0.3em] text-sm font-bold">INSIGHTS</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mt-3">ARCHITECTURAL JOURNAL</h2>
+                </div>
+                <a href="newsroom.html" class="btn-magnetic px-8 py-3 border border-white/20 font-display text-sm tracking-widest font-bold hover:border-brand-gold transition-colors">VIEW ALL NEWS</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[350px]">
+                <!-- Article 1: Big Feature (Spans 2x2 on desktop) -->
+                <article class="group relative md:col-span-2 md:row-span-2 overflow-hidden rounded-sm cursor-pointer border border-white/5" data-aos="fade-up">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/5-star-hotel.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sustainable Architecture">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 transition-opacity"></div>
+                    <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end items-start">
+                         <span class="bg-brand-gold text-black text-xs font-bold px-3 py-1 mb-4 uppercase tracking-widest">Featured Story</span>
+                         <h3 class="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-none group-hover:text-brand-gold transition-colors">THE FUTURE OF SUSTAINABLE CONCRETE</h3>
+                         <p class="text-gray-300 line-clamp-2 max-w-lg mt-2 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">How modern materials are reshaping the skyline while reducing carbon footprints, paving the way for a greener tomorrow.</p>
+                         <div class="mt-8 flex items-center gap-3 text-sm font-bold tracking-widest text-brand-gold border-b border-brand-gold pb-1">
+                            READ ARTICLE <i class="ph-bold ph-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                         </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: Small Card -->
+                <article class="group relative overflow-hidden rounded-sm cursor-pointer border border-white/5 bg-brand-gray" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/high-tower-with-futuristic-design.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 group-hover:opacity-40" alt="Brutalism">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-between">
+                        <span class="text-xs text-gray-400 font-display tracking-widest">OCT 12, 2024</span>
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-white mb-2 group-hover:underline decoration-brand-gold underline-offset-4 decoration-2">URBAN BRUTALISM</h3>
+                            <p class="text-gray-400 text-sm mt-2 line-clamp-2">Why raw concrete is making a massive comeback in luxury design.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3: Text Only / Press -->
+                <article class="group relative overflow-hidden rounded-sm cursor-pointer border border-white/5 bg-brand-gold" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute inset-0 bg-[url('../images/carbon-fibre.png')] opacity-10 mix-blend-multiply"></div>
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 p-8 flex flex-col justify-center items-center text-center relative z-10">
+                        <i class="ph-duotone ph-newspaper text-6xl text-black mb-6 transition-transform group-hover:scale-110"></i>
+                        <h3 class="font-display text-3xl font-bold text-black mb-2">PRESS RELEASE</h3>
+                        <p class="text-black/70 text-sm font-bold tracking-widest">Q4 2024 REPORT</p>
+                        <span class="absolute bottom-8 text-black text-2xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"><i class="ph-bold ph-arrow-right"></i></span>
+                    </div>
+                </article>
+                
+                <!-- Article 4: Wide Banner -->
+                 <article class="group relative md:col-span-3 overflow-hidden rounded-sm cursor-pointer border border-white/5 flex flex-col md:flex-row items-center bg-brand-gray" data-aos="fade-up" data-aos-delay="300">
+                     <div class="w-full md:w-1/2 h-full relative overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/farazc60/Project-Images/refs/heads/main/Apex%20Construction%20Website%20Template/historic-building-restoration.jpg" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Minimalism">
+                     </div>
+                     <div class="w-full md:w-1/2 p-8 md:p-16 relative z-10 flex flex-col justify-center h-full">
+                         <span class="text-brand-gold text-xs font-bold tracking-widest uppercase mb-4 block">Design Trends</span>
+                         <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-6">MINIMALISM IN INDUSTRIAL SPACES</h3>
+                         <p class="text-gray-400 mb-8 leading-relaxed">Explore how we are stripping back the unnecessary to reveal the raw beauty of industrial architecture, creating spaces that breathe.</p>
+                         <div>
+                            <span class="inline-flex items-center gap-2 text-white font-bold text-sm tracking-widest border-b border-white/30 pb-1 group-hover:border-brand-gold group-hover:text-brand-gold transition-colors">READ MORE <i class="ph-bold ph-arrow-right"></i></span>
+                         </div>
+                     </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer id="contact" class="bg-[#050505] pt-32 pb-8 border-t border-white/5 relative">
+        
+        <div class="container mx-auto px-6 mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Contact Form -->
+                <div>
+                    <span class="text-brand-gold tracking-[0.3em] text-sm font-bold">GET IN TOUCH</span>
+                    <h2 class="font-display text-5xl font-bold mt-3 mb-8">START YOUR PROJECT</h2>
+                    
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="group relative">
+                                <input type="text" placeholder="Name" required class="w-full bg-transparent border-b border-gray-700 py-4 focus:outline-none focus:border-brand-gold transition-colors text-white placeholder-gray-500">
+                            </div>
+                            <div class="group relative">
+                                <input type="email" placeholder="Email" required class="w-full bg-transparent border-b border-gray-700 py-4 focus:outline-none focus:border-brand-gold transition-colors text-white placeholder-gray-500">
+                            </div>
+                        </div>
+                        <div class="group relative">
+                            <select class="w-full bg-transparent border-b border-gray-700 py-4 focus:outline-none focus:border-brand-gold transition-colors text-gray-500">
+                                <option>Select Service</option>
+                                <option>Commercial Construction</option>
+                                <option>Residential Build</option>
+                                <option>Renovation</option>
+                            </select>
+                        </div>
+                        <div class="group relative">
+                            <textarea rows="4" placeholder="Project Details" required class="w-full bg-transparent border-b border-gray-700 py-4 focus:outline-none focus:border-brand-gold transition-colors text-white placeholder-gray-500"></textarea>
+                        </div>
+                        <button type="submit" class="mt-8 btn-magnetic px-10 py-4 border border-white/20 font-display font-bold tracking-widest text-white hover:border-brand-gold">
+                            SEND PROPOSAL
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="flex flex-col justify-between pl-0 lg:pl-12">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-white font-bold mb-6 font-display tracking-widest text-lg">HEADQUARTERS</h4>
+                            <p class="text-gray-400 mb-4 leading-loose">123 Titanium Ave.<br>New York, NY 10012</p>
+                            <a href="mailto:info@apex.com" class="text-brand-gold block hover:text-white transition-colors mb-2">info@apex.com</a>
+                            <a href="tel:+1555000000" class="text-gray-400 block hover:text-white transition-colors">+1 (555) 000-0000</a>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-6 font-display tracking-widest text-lg">LINKS</h4>
+                            <ul class="space-y-3 text-gray-400">
+                                <li><a href="careers.html" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="ph ph-caret-right"></i> Careers</a></li>
+                                <li><a href="investor-relations.html" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="ph ph-caret-right"></i> Investors</a></li>
+                                <li><a href="newsroom.html" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="ph ph-caret-right"></i> Press & Media</a></li>
+                                <li><a href="privacy-terms.html" class="hover:text-brand-gold transition-colors flex items-center gap-2"><i class="ph ph-caret-right"></i> Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 bg-white/5 p-6 rounded-lg border border-white/10">
+                        <h4 class="text-white font-bold mb-4 font-display tracking-widest">NEWSLETTER</h4>
+                        <div class="flex border-b border-gray-600 pb-2">
+                            <input type="email" placeholder="Enter your email" class="bg-transparent w-full focus:outline-none text-white placeholder-gray-500">
+                            <button class="text-brand-gold hover:text-white transition-transform hover:translate-x-1"><i class="ph ph-paper-plane-right text-xl"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Big Footer Text -->
+        <div class="border-t border-white/10 pt-8">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2025 Apex Construction. All rights reserved.</p>
+                
+                <!-- Socials -->
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-black transition-all hover:-translate-y-1">
+                        <i class="ph-fill ph-instagram-logo"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-black transition-all hover:-translate-y-1">
+                        <i class="ph-fill ph-x-logo"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-black transition-all hover:-translate-y-1">
+                        <i class="ph-fill ph-linkedin-logo"></i>
+                    </a>
+                </div>
+
+                <!-- Credits -->
+                <div class="text-sm text-gray-500 flex items-center gap-1 group cursor-default">
+                    Made with <i class="ph-fill ph-heart text-red-600 group-hover:scale-125 transition-transform"></i> by <a href="https://www.codewithfaraz.com" class="text-gray-300 group-hover:text-brand-gold transition-colors font-bold">codewithfaraz</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
